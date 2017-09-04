@@ -2,4 +2,4 @@
 secrets.sh
 .venv/
 node_modules/
-
+static/build/
