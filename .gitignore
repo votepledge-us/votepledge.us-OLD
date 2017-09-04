@@ -1,2 +1,5 @@
+*.pyc
 secrets.sh
 .venv/
+node_modules/
+
