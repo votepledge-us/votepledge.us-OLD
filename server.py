@@ -12,13 +12,13 @@ app.config['SECRET_KEY']
 @app.route('/')
 def index():
     """ Landing. """
-    return "Hello world"
+    return render_template('index.html')
 
 
 
 
 
 if __name__ == "__main__":
-    app.debug = True
-    DebugToolbarExtension(app) # creates toolbar extension
+    app.debug = False
+    # DebugToolbarExtension(app) # creates toolbar extension
     app.run(port=5000, host='0.0.0.0')
