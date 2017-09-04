@@ -19,6 +19,6 @@ def index():
 
 
 if __name__ == "__main__":
-    app.debug = False
-    # DebugToolbarExtension(app) # creates toolbar extension
+    app.debug = True
+    DebugToolbarExtension(app) # creates toolbar extension
     app.run(port=5000, host='0.0.0.0')

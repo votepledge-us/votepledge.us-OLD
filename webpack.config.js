@@ -48,7 +48,6 @@ module.exports = {
       allChunks: true
     }),
     new webpack.EnvironmentPlugin([ // gets environmental variables from shell
-      'google_api_key',
     ])
   ],
 

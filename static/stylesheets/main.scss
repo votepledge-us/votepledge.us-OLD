@@ -1,0 +1,62 @@
+@import '../../node_modules/minireset.css/minireset.min.css';
+@import '../../node_modules/normalize.css/normalize.css';
+
+body {
+  font-family: sans-serif;
+}
+
+.landing-contents-container {
+  max-width: 800px;
+  min-width: 280px;
+  flex-flow: column;
+  display: flex;
+  margin: auto;
+  text-align: center;
+  margin-top: 104px;
+}
+
+.landing-header {
+  font-size: 48px;
+}
+
+.landing-subheader {
+  font-size: 24px;
+  padding: 16px;
+}
+
+.landing-btn-container {
+  flex-flow: row;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 16px;
+}
+
+.btn {
+  border-radius: 4px;
+  font-size: 24px;
+  padding: 16px;
+  transition: background 300ms ease;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #353535;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #555555;
+}
+
+.secondary-btn {
+  background: white;
+  border: 1px solid #353535;
+  color: #353535;
+}
+
+.secondary-btn:hover {
+  background: #CCCCCC;
+}
