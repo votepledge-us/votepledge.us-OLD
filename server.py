@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, render_template, redirect, request, flash, session
+from flask import Flask, jsonify, render_template, redirect, request, flash, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension 
 from flask_sqlalchemy import SQLAlchemy # ORM for PostgreSQL database
 import os
-#from googleapiclient.civicinfo.representatives import representativesByAddress
+from googleapiclient.discovery import build
+
 
 GOOGLE_API_KEY = os.environ['google_api_key'] # source google api key from os environment
 
@@ -16,9 +17,7 @@ def index():
     return render_template('index.html')
 
 # Below is a Flask App framework I envision for this site.
-# Template files referenced don't yet exist.
 
-"""
 @app.route('/enterinfo') # Interface for when user clicks 'Get Started'
 def enterinfo():
     # template will contain fields for a user's name and zipcode
@@ -26,16 +25,20 @@ def enterinfo():
 
 @app.route('/repinfo')
 def repinfo():
-    addr = request.form['zipcode'] # gets user's zipcode from '/enterinfo'
-    name = request.form['name'] # gets user's name from '/enterinfo'
-    API_call = representativeInfoByAddress(levels='country', roles='legislatorLowerBody',
-                                           address=addr)
-    rep=API_call['officials'][0]['name']
-    party=API_call['officials'][0]['party'] # different template will render depending on party
-    if party == 'Republican':
-        render_template('repinfoGOP.html', name=name, rep=rep) # name will be submitted to next page
-    elif party == 'Democratic':
-        render_template('repinfoDEM.html', name=name, rep=rep)
+    if request.method == 'POST:
+        addr = request.form['zipcode'] # gets user's zipcode from '/enterinfo'
+        name = request.form['name'] # gets user's name from '/enterinfo'
+        API_build = build('civicinfo','v2',developerKey=GOOGLE_API_KEY).represetatives()
+        API_call = API_build.representativeInfoByAddress(levels='country', roles='legislatorLowerBody',
+                                                         address=addr).execute()
+        rep=API_call['officials'][0]['name']
+        party=API_call['officials'][0]['party'] # different template will render depending on party
+        if party == 'Republican':
+            render_template('repinfoGOP.html', name=name, rep=rep) # name will be submitted to next page
+        elif party == 'Democratic':
+            render_template('repinfoDEM.html', name=name, rep=rep)
+    else:
+        return r'<a href="/enterinfo">First enter your info here</a>'
 
 @app.route('/pledge')
 def pledge():
@@ -43,8 +46,10 @@ def pledge():
     rep = request.args.get('rep', None)
     if request.method == 'POST':
         # send submitted data to backend
+        # not sure we have that part fully figured out yet
+        redirect(url_for(index))
     render_template('pledge.html', name=name, rep=rep)
-""" 
+
 
 if __name__ == "__main__":
     app.debug = True
