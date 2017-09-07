@@ -5,8 +5,8 @@ import os
 from googleapiclient.discovery import build
 
 
-GOOGLE_API_KEY = os.environ['google_api_key'] # source google api key from os environment
-
+# GOOGLE_API_KEY = os.environ['google_api_key'] # source google api key from os environment
+GOOGLE_API_KEY = 'AIzaSyBO9CwLQzVNB_dZUUEcsHHFKBkfoqOi8PQ'
 app = Flask(__name__) # create instance of Flask app
 app.secret_key = 'SECRET_KEY'
 app.config['SECRET_KEY']
