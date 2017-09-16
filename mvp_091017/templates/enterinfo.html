@@ -4,13 +4,16 @@
       VotePledge.US
     </title>
   </head>
-  <body>
+ <body>
     <h2>First, tell us a bit about yourself</h2>
-    <form action="/repinfo" method="post">
-      Name:<br><br>
-      <input type="text" name="name"><br><br>
-      Zipcode:<br><br>
-      <input type="text" name="zipcode"><br><br>
+    <form action="" method="post">
+      <input type="text" name="email" placeholder="Email:" value="{{email_value|safe}}">
+		<br><div style="color:red;">{{email_error|safe}}</div>      
+      <br>
+<br>
+      <input type="text" name="zipcode" placeholder="Zipcode:" value="{{zip_value|safe}}">
+      <br><div style="color:red;">{{zipcode_error|safe}}</div>      
+      <br><br>
       <input type="submit" value="Find Representative">
     </form>
   </body>
