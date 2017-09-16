@@ -71,7 +71,7 @@ def enterinfo():
         addr = ''
         raw_email = ''
         # template will contain fields for a user's name and zipcode
-    return render_template('enterinfo2.html', email_error = email_error, zipcode_error = zipcode_error,
+    return render_template('enterinfo.html', email_error = email_error, zipcode_error = zipcode_error,
                            zip_value = addr, email_value=raw_email)
 
 @app.route('/repinfo', methods=['GET', 'POST'])
@@ -93,7 +93,7 @@ def pledge():
         # send submitted data to backend
         # not sure we have that part fully figured out yet
         #redirect(url_for(index))
-    return render_template('pledge2.html', rep=rep)
+    return render_template('pledge.html', rep=rep)
 
 @app.route('/thanks', methods=['GET', 'POST'])
 def thanks():
