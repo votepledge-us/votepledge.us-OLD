@@ -21,6 +21,24 @@ def index():
     # Landing.
     return render_template('index.html')
 """
+#4
+
+transitions = {0: {'enterinfocss': '',
+                   'repinfocss': 'style="display:none;"',
+                   'pledgecss': 'style="display:none;"',
+                   'thankscss': 'style="display:none;"'},
+               1: {'enterinfocss': 'class="animated slideInLeft"',
+                   'repinfocss': 'class="animated slideOutRight"',
+                   'pledgecss': 'style="display:none;"',
+                   'thankscss': 'style="display:none;"'},
+               2: {'enterinfocss': 'class="animated slideInLeft"',
+                   'repinfocss': 'style="display:none;"',
+                   'pledgecss': 'class="animated slideOutRight"',
+                   'thankscss': 'style="display:none;"'},
+               3: {'enterinfocss': 'class="animated slideInLeft"',
+                   'repinfocss': 'style="display:none;"',
+                   'pledgecss': 'style="display:none;"',
+                   'thankscss': 'class="animated slideOutRight"'}}
 
 @app.route('/', methods=['GET'])
 def index():
@@ -71,18 +89,34 @@ def enterinfo():
         addr = ''
         raw_email = ''
         # template will contain fields for a user's name and zipcode
-    return render_template('enterinfo.html', email_error = email_error, zipcode_error = zipcode_error,
-                           zip_value = addr, email_value=raw_email)
+    try:
+        enterinfocss = transitions[session['CurrentPage']]['enterinfocss']
+        repinfocss = transitions[session['CurrentPage']]['repinfocss']
+        pledgecss = transitions[session['CurrentPage']]['pledgecss']
+        thankscss = transitions[session['CurrentPage']]['thankscss']
+    except KeyError:
+        enterinfocss = ''
+        repinfocss = 'style="display:none;"'
+        pledgecss = 'style="display:none;"'
+        thankscss = 'style="display:none;"'
+    session['CurrentPage'] = 0
+    return render_template('votepledge.html', email_error = email_error, zipcode_error = zipcode_error,
+                           zip_value = addr, email_value=raw_email,repinfocss=repinfocss,
+                           pledgecss=pledgecss,thankscss=thankscss, enterinfocss=enterinfocss)
 
 @app.route('/repinfo', methods=['GET', 'POST'])
 def repinfo():
     party = session['party']
     rep = session['rep']
     pic = session['pic']
-    if party == 'Republican':
-        return render_template('repinfoGOP.html', rep=rep, pic=pic) # name will be submitted to next page
-    elif party == 'Democratic':
-        return render_template('repinfoDEM.html', rep=rep, pic=pic)
+    if party != None:
+        enterinfocss = 'class="animated slideOutLeft"'
+        repinfocss = 'class="animated slideInRight"'
+        pledgecss = 'style="display:none;"'
+        thankscss = 'style="display:none;"'
+        session['CurrentPage'] = 1
+        return render_template('votepledge.html',rep=rep,pic=pic,enterinfocss=enterinfocss,repinfocss=repinfocss,
+                               pledgecss=pledgecss,thankscss=thankscss)
     else:
         return r'<a href="/enterinfo">First enter your info here</a>'
 
@@ -93,7 +127,13 @@ def pledge():
         # send submitted data to backend
         # not sure we have that part fully figured out yet
         #redirect(url_for(index))
-    return render_template('pledge.html', rep=rep)
+    enterinfocss = 'style="display:none;"'
+    repinfocss = 'class="animated slideOutLeft"'
+    pledgecss = 'class="animated slideInRight"'
+    thankscss = 'style="display:none;"'
+    session['CurrentPage'] = 2
+    return render_template('votepledge.html', rep=rep,enterinfocss=enterinfocss,repinfocss=repinfocss,
+                           pledgecss=pledgecss,thankscss=thankscss)
 
 @app.route('/thanks', methods=['GET', 'POST'])
 def thanks():
@@ -108,7 +148,13 @@ def thanks():
         message = request.form['message']
         date_time = datetime.strftime(datetime.now(), '%Y/%m/%d %H:%M:%S')
         sheet.append_row([name, rep, message, date_time, email])
-        return '<h3>Your pledge has been saved. Thanks!</h3>'
+        enterinfocss = 'style="display:none;"'
+        repinfocss = 'style="display:none;"'
+        pledgecss = 'class="animated slideOutLeft"'
+        thankscss = 'class="animated slideInRight"'
+        session['CurrentPage'] = 3
+        return render_template('votepledge.html',enterinfocss=enterinfocss,repinfocss=repinfocss,
+                               pledgecss=pledgecss,thankscss=thankscss)
     else:
         return 'Error'
 #5
