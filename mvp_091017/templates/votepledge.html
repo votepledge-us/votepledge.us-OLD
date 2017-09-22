@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>
+      {{title|safe}}
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <style>
+      div {
+          position:fixed;
+          color:white;
+          top:10%;
+          width:50%;
+          left:25%;
+          text-align:center;
+          background-color:rgba(150, 150, 150, 0.7);
+      }
+      img {
+          height: auto;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          -o-border-radius: 50%;
+          border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body style="background-image:url(https://upload.wikimedia.org/wikipedia/commons/c/c8/Eric_Garner_Protest_Chicago_Dec_4_2014.jpg);background-size:100% auto;">
+    <div {{enterinfocss|safe}}>
+      <h2>First, tell us a bit about yourself</h2>
+    
+      <form action="" method="post">
+      
+        <input type="text" name="email" placeholder="Email:" value="{{email_value|safe}}">
+		
+        <br><p style="color:red;">{{email_error|safe}}</p><br>
+<br>
+      
+        <input type="text" name="zipcode" placeholder="Zipcode:" value="{{zip_value|safe}}">
+      
+        <br><p style="color:red;">{{zipcode_error|safe}}</p><br><br>
+      
+        <input type="submit" value="Find Representative">
+    
+      </form>
+
+    </div>
+    <div {{repinfocss|safe}}>
+      <img src="{{pic|safe}}">   
+      <h3>{{rep|safe}} has voted against the Affordable Care Act.<br>
+      Let {{rep|safe}} know you will not be supporting him because of this.</h3>
+    
+      <form action="{{url_for('pledge')}}", method="POST">
+        <input type="hidden" name="rep" value="{{rep|safe}}">
+        <input type="hidden" name="name" value="{{name
+|safe}}">     
+        <input type="submit" value="Do Not Vote">
+    
+      </form>
+
+    </div>
+    <div {{pledgecss|safe}}>
+      <h3>Pledge Your Vote Against {{rep|safe}}</h3>
+    	
+      <form action="{{url_for('thanks')}}" method="post">
+ 	 	  
+        I, <input type="text" name="name" placeholder="Your Name:" required>, will not be voting for {{rep|safe}}.<br>
+          
+        <textarea name="message" rows="10" cols="50" placeholder="Continue message here.">
+</textarea>
+<br>     
+        <input type="submit" value="Sign Pledge">
+    
+      </form>
+    </div>
+    <div {{thankscss|safe}}>
+      <h3>Your pledge has been successfuly submitted. Thanks!</h3>
+    </div>
+    <h1 style="position:fixed;bottom:0;width:50%;left:50%;transform:translateX(-50%);text-align:center;color:white;">
+      VotePledge.US
+    </h1>
+  </body>
+</html>
