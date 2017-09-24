@@ -334,7 +334,7 @@ def pledge():
         thankscss = transitions3[3]['thankscss']
     session['CurrentPage'] = 3
     return render_template('votepledge.html', indexcss=indexcss, aboutcss=aboutcss, pledgecopy = pledgecopy,enterinfocss=enterinfocss,repinfocss=repinfocss,
-                           pledgecss=pledgecss,thankscss=thankscss, title=title)
+                           pledgecss=pledgecss,thankscss=thankscss, title=title, rep=rep)
 #4
 @app.route('/thanks', methods=['GET', 'POST'])
 def thanks():
