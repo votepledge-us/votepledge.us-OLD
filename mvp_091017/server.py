@@ -12,7 +12,7 @@ from email_validator import validate_email, EmailNotValidError
 from healthcaredict import healthcaredict
 
 # GOOGLE_API_KEY = os.environ['google_api_key'] # source google api key from os environment
-GOOGLE_API_KEY = 'AIzaSyBO9CwLQzVNB_dZUUEcsHHFKBkfoqOi8PQ'
+GOOGLE_API_KEY = ###
 app = Flask(__name__) # create instance of Flask app
 app.secret_key = 'SECRET_KEY'
 app.config['SECRET_KEY']
